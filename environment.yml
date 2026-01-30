@@ -1,4 +1,4 @@
-name: realtime-aula01
+name: realtime_processing
 channels:
   - conda-forge
 dependencies:
