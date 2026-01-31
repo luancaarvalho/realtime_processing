@@ -1,4 +1,5 @@
 import argparse
+import json
 import time
 
 import orjson
@@ -23,6 +24,7 @@ def main():
     parser.add_argument("--watermark_min", type=int, default=5)
     parser.add_argument("--window_min", type=int, default=10)
     parser.add_argument("--on_time_sec", type=int, default=60)
+    parser.add_argument("--output", default="demo5_data.json")
     args = parser.parse_args()
 
     consumer = Consumer(
@@ -40,6 +42,7 @@ def main():
 
     max_event_time_ms = None
     counts = {"green": 0, "orange": 0, "red": 0}
+    data_points = []
 
     try:
         processed = 0
@@ -68,6 +71,13 @@ def main():
             current_watermark = max_event_time_ms - watermark_ms
             color = classify(event_time_ms, processing_time_ms, current_watermark, on_time_ms)
             counts[color] += 1
+            
+            data_points.append({
+                "event_time_ms": event_time_ms,
+                "processing_time_ms": processing_time_ms,
+                "color": color
+            })
+            
             processed += 1
 
             consumer.commit(message=msg, asynchronous=False)
@@ -76,7 +86,10 @@ def main():
 
     print(f"green={counts['green']} orange={counts['orange']} red={counts['red']}")
     print(f"dlq_count={counts['red']}")
-    print("TODO: gerar grafico com processing_time (x) vs event_time (y) usando cores")
+    
+    with open(args.output, "w") as f:
+        json.dump(data_points, f, indent=2)
+    print(f"dados salvos em {args.output}")
 
 
 if __name__ == "__main__":
