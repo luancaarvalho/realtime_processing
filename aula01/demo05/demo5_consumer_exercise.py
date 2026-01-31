@@ -1,6 +1,8 @@
 import argparse
 import time
-
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
 import orjson
 from confluent_kafka import Consumer, KafkaError, KafkaException
 
@@ -13,7 +15,7 @@ def classify(event_time_ms, processing_time_ms, watermark_ms, on_time_ms):
         return "orange"
     return "green"
 
-
+data_plot = [] 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--bootstrap", default="localhost:9092")
@@ -61,7 +63,6 @@ def main():
 
             event_time_ms = int(event_time_ms)
             processing_time_ms = int(processing_time_ms)
-
             if max_event_time_ms is None or event_time_ms > max_event_time_ms:
                 max_event_time_ms = event_time_ms
 
@@ -69,8 +70,16 @@ def main():
             color = classify(event_time_ms, processing_time_ms, current_watermark, on_time_ms)
             counts[color] += 1
             processed += 1
+            print(f"event_time_ms={event_time_ms} processing_time_ms={processing_time_ms} color={color}")
 
             consumer.commit(message=msg, asynchronous=False)
+            data_plot.append(
+                {           
+                    "processing_time":processing_time_ms, 
+                    "event_time":event_time_ms, 
+                    "color":color
+                }
+            )
     finally:
         consumer.close()
 
@@ -78,6 +87,31 @@ def main():
     print(f"dlq_count={counts['red']}")
     print("TODO: gerar grafico com processing_time (x) vs event_time (y) usando cores")
 
+    df = pd.DataFrame(data_plot)
+    print(df.head())
+    fig, ax = plt.subplots()
+
+    ax.scatter(
+        df["processing_time"],
+        df["event_time"],
+        c=df["color"]
+    )
+
+    #y = x
+    min_val = min(df["processing_time"].min(), df["event_time"].min())
+    max_val = max(df["processing_time"].max(), df["event_time"].max())
+
+    ax.plot(
+        [min_val, max_val],
+        [min_val, max_val],
+        linestyle='--',
+        color='gray',
+        label='Reference Execution (y=x)'
+    )
+    ax.set_xlabel("Processing Time")
+    ax.set_ylabel("Event Time")
+    ax.set_title("Event Time vs Processing Time")
+    plt.show()
 
 if __name__ == "__main__":
     main()

@@ -51,6 +51,16 @@ def main():
             )
         )
 
+    if "rt.events.etpt" not in existing:
+        topics.append(
+            NewTopic(
+                "rt.events.etpt",
+                num_partitions=1,
+                replication_factor=1,
+                config={"min.insync.replicas": "1"},
+            )
+        )
+
     if not topics:
         print("topics already exist")
         return

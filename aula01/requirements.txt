@@ -1,2 +1,5 @@
 confluent-kafka
 orjson
+pandas
+matplotlib
+numpy
