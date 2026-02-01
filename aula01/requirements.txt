@@ -1,2 +1,12 @@
 confluent-kafka
 orjson
+
+# Plotting and analysis
+matplotlib
+numpy
+pandas
+seaborn
+
+# Interactive plotting + image export
+plotly
+kaleido
