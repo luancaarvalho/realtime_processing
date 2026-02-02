@@ -1,7 +1,7 @@
 import argparse
 import time
-
 import orjson
+import matplotlib.pyplot as plt
 from confluent_kafka import Consumer, KafkaError, KafkaException
 
 
@@ -40,6 +40,7 @@ def main():
 
     max_event_time_ms = None
     counts = {"green": 0, "orange": 0, "red": 0}
+    historico = []
 
     try:
         processed = 0
@@ -55,6 +56,7 @@ def main():
             data = orjson.loads(msg.value())
             event_time_ms = data.get("event_time_ms")
             processing_time_ms = data.get("processing_time_ms")
+
             if event_time_ms is None or processing_time_ms is None:
                 consumer.commit(message=msg, asynchronous=False)
                 continue
@@ -67,16 +69,34 @@ def main():
 
             current_watermark = max_event_time_ms - watermark_ms
             color = classify(event_time_ms, processing_time_ms, current_watermark, on_time_ms)
+            
             counts[color] += 1
             processed += 1
+            historico.append({"x": processing_time_ms, "y": event_time_ms, "color": color})
 
             consumer.commit(message=msg, asynchronous=False)
     finally:
         consumer.close()
 
     print(f"green={counts['green']} orange={counts['orange']} red={counts['red']}")
-    print(f"dlq_count={counts['red']}")
-    print("TODO: gerar grafico com processing_time (x) vs event_time (y) usando cores")
+
+    if historico:
+        import matplotlib
+        matplotlib.use('Agg') 
+        import matplotlib.pyplot as plt
+
+        plt.figure(figsize=(10, 6))
+        for point in historico:
+            plt.scatter(point["x"], point["y"], c=point["color"], alpha=0.6)
+        
+        plt.title("Tempo de Processamento x Tempo de evento")
+        plt.xlabel("Tempo de processamento (ms)")
+        plt.ylabel("Tempo de evento (ms)")
+        plt.grid(True)
+        
+        plt.savefig("resultado_streaming.png")
+        print("gráfico salvo")
+        
 
 
 if __name__ == "__main__":
