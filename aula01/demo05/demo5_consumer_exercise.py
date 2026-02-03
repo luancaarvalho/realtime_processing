@@ -4,6 +4,9 @@ import time
 import orjson
 from confluent_kafka import Consumer, KafkaError, KafkaException
 
+# >>> ACRESCENTADO <<<
+import matplotlib.pyplot as plt
+
 
 def classify(event_time_ms, processing_time_ms, watermark_ms, on_time_ms):
     delay = processing_time_ms - event_time_ms
@@ -41,6 +44,11 @@ def main():
     max_event_time_ms = None
     counts = {"green": 0, "orange": 0, "red": 0}
 
+    
+    xs = []      # processing_time_ms
+    ys = []      # event_time_ms
+    colors = []  # green / orange / red
+
     try:
         processed = 0
         while processed < args.records:
@@ -70,13 +78,32 @@ def main():
             counts[color] += 1
             processed += 1
 
+            
+            xs.append(processing_time_ms)
+            ys.append(event_time_ms)
+            colors.append(color)
+
             consumer.commit(message=msg, asynchronous=False)
     finally:
         consumer.close()
 
     print(f"green={counts['green']} orange={counts['orange']} red={counts['red']}")
     print(f"dlq_count={counts['red']}")
-    print("TODO: gerar grafico com processing_time (x) vs event_time (y) usando cores")
+
+    # >>> PLOT
+    plt.figure(figsize=(8, 8))
+    plt.scatter(xs, ys, c=colors, alpha=0.7)
+
+    # linha de referência y = x
+    min_val = min(min(xs), min(ys))
+    max_val = max(max(xs), max(ys))
+    plt.plot([min_val, max_val], [min_val, max_val], linestyle="--")
+
+    plt.xlabel("processing_time (ms)")
+    plt.ylabel("event_time (ms)")
+    plt.title("Event-time vs Processing-time")
+    plt.grid(True)
+    plt.show()
 
 
 if __name__ == "__main__":
