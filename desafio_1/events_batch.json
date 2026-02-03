@@ -1,0 +1,807 @@
+{
+  "batch": 1927,
+  "batch_size": 100,
+  "generated_at_ms": 1770158435937,
+  "events": [
+    {
+      "event_id": "7d49b4a2-936d-4bbd-852f-4c32995ba968",
+      "symbol": "SOLUSDT",
+      "price": 44332.02,
+      "qty": 1.940509,
+      "event_time_ms": 1770158435537,
+      "sent_at_ms": 1770158435537
+    },
+    {
+      "event_id": "a30d434d-6049-4c2c-8bf8-c056dd2d60e1",
+      "symbol": "SOLUSDT",
+      "price": 36165.11,
+      "qty": 1.170174,
+      "event_time_ms": 1770158435554,
+      "sent_at_ms": 1770158435554
+    },
+    {
+      "event_id": "f0f523eb-4907-4968-a43b-113ec27d66bc",
+      "symbol": "ETHUSDT",
+      "price": 16206.37,
+      "qty": 3.909424,
+      "event_time_ms": 1770158435537,
+      "sent_at_ms": 1770158435537
+    },
+    {
+      "event_id": "dfe1d670-a046-4954-b26c-394e32375055",
+      "symbol": "ETHUSDT",
+      "price": 45292.06,
+      "qty": 4.028079,
+      "event_time_ms": 1770158311249,
+      "sent_at_ms": 1770158435548
+    },
+    {
+      "event_id": "c28e8c4b-d807-4ba0-a5f7-0f1eda4e4c5b",
+      "symbol": "BTCUSDT",
+      "price": 3580.99,
+      "qty": 1.464683,
+      "event_time_ms": 1770158435551,
+      "sent_at_ms": 1770158435551
+    },
+    {
+      "event_id": "4fa1dbf6-b896-4caa-9d3d-797eba5c40cf",
+      "symbol": "ETHUSDT",
+      "price": 43975.6,
+      "qty": 3.540905,
+      "event_time_ms": 1770158435551,
+      "sent_at_ms": 1770158435551
+    },
+    {
+      "event_id": "5efe8db3-84cf-41fd-a66e-f3adf077f3e4",
+      "symbol": "ETHUSDT",
+      "price": 35267.42,
+      "qty": 0.568592,
+      "event_time_ms": 1770158435552,
+      "sent_at_ms": 1770158435552
+    },
+    {
+      "event_id": "76dd2db7-a975-4877-a85d-8a4c8d254493",
+      "symbol": "ETHUSDT",
+      "price": 5970.73,
+      "qty": 1.287159,
+      "event_time_ms": 1770158435557,
+      "sent_at_ms": 1770158435557
+    },
+    {
+      "event_id": "aa2d4d59-53a1-42d6-a47a-c0523d4f1759",
+      "symbol": "BTCUSDT",
+      "price": 9587.32,
+      "qty": 2.412578,
+      "event_time_ms": 1770158435560,
+      "sent_at_ms": 1770158435560
+    },
+    {
+      "event_id": "f9f50462-080f-4cdf-843b-c6d7c0c05085",
+      "symbol": "ETHUSDT",
+      "price": 24011.9,
+      "qty": 1.758899,
+      "event_time_ms": 1770158398225,
+      "sent_at_ms": 1770158435571
+    },
+    {
+      "event_id": "3624af64-c3c1-41fc-ba5e-9361263f7ded",
+      "symbol": "ETHUSDT",
+      "price": 27953.18,
+      "qty": 3.722281,
+      "event_time_ms": 1770158435572,
+      "sent_at_ms": 1770158435572
+    },
+    {
+      "event_id": "21c14825-97e7-41d7-9b1f-1c835e012ff6",
+      "symbol": "SOLUSDT",
+      "price": 49773.95,
+      "qty": 1.437341,
+      "event_time_ms": 1770158187633,
+      "sent_at_ms": 1770158435572
+    },
+    {
+      "event_id": "894d30f2-e80c-4d5e-bc5c-41d405e7ca45",
+      "symbol": "SOLUSDT",
+      "price": 36391.86,
+      "qty": 2.22474,
+      "event_time_ms": 1770158435575,
+      "sent_at_ms": 1770158435575
+    },
+    {
+      "event_id": "c95aee0c-640d-45c4-a28a-be9efc134678",
+      "symbol": "SOLUSDT",
+      "price": 1758.82,
+      "qty": 4.561859,
+      "event_time_ms": 1770158435578,
+      "sent_at_ms": 1770158435578
+    },
+    {
+      "event_id": "1895b44c-a35c-427c-9f67-8031d5cdb9bc",
+      "symbol": "SOLUSDT",
+      "price": 23433.64,
+      "qty": 3.079921,
+      "event_time_ms": 1770158302776,
+      "sent_at_ms": 1770158435580
+    },
+    {
+      "event_id": "59221276-9f8d-4ae5-a057-67eef5434cca",
+      "symbol": "SOLUSDT",
+      "price": 6916.07,
+      "qty": 0.197118,
+      "event_time_ms": 1770158233738,
+      "sent_at_ms": 1770158435594
+    },
+    {
+      "event_id": "6e5dfe6e-3ec8-4a88-8877-8461f48d88cd",
+      "symbol": "SOLUSDT",
+      "price": 39040.59,
+      "qty": 4.346321,
+      "event_time_ms": 1770158435611,
+      "sent_at_ms": 1770158435611
+    },
+    {
+      "event_id": "d3af410d-cfa6-4899-99c1-1d71e4f78f4c",
+      "symbol": "ETHUSDT",
+      "price": 47678.05,
+      "qty": 0.521722,
+      "event_time_ms": 1770158435583,
+      "sent_at_ms": 1770158435583
+    },
+    {
+      "event_id": "ba914237-89a4-48a1-bd5a-8ac51034b064",
+      "symbol": "BTCUSDT",
+      "price": 44510.92,
+      "qty": 3.246237,
+      "event_time_ms": 1770158435587,
+      "sent_at_ms": 1770158435587
+    },
+    {
+      "event_id": "209a9a79-2323-4687-8447-354dac4e0be6",
+      "symbol": "ETHUSDT",
+      "price": 5282.7,
+      "qty": 3.333419,
+      "event_time_ms": 1770158435592,
+      "sent_at_ms": 1770158435592
+    },
+    {
+      "event_id": "afc90016-cf37-46ea-bd4b-4be41223a21d",
+      "symbol": "ETHUSDT",
+      "price": 28846.17,
+      "qty": 0.887742,
+      "event_time_ms": 1770158435597,
+      "sent_at_ms": 1770158435597
+    },
+    {
+      "event_id": "9cbaa728-cbf7-4388-b70e-0ed836e73c55",
+      "symbol": "BTCUSDT",
+      "price": 16748.37,
+      "qty": 1.893983,
+      "event_time_ms": 1770158435601,
+      "sent_at_ms": 1770158435601
+    },
+    {
+      "event_id": "1abf2087-cf7d-47d3-9972-b8e0f4805f65",
+      "symbol": "BTCUSDT",
+      "price": 1467.96,
+      "qty": 2.077141,
+      "event_time_ms": 1770158435604,
+      "sent_at_ms": 1770158435604
+    },
+    {
+      "event_id": "357f27e4-bcd5-4774-9e5a-872d74c23c5f",
+      "symbol": "ETHUSDT",
+      "price": 1941.48,
+      "qty": 2.210313,
+      "event_time_ms": 1770158435607,
+      "sent_at_ms": 1770158435607
+    },
+    {
+      "event_id": "005baf86-67a6-42e8-a187-13ee9f54faa5",
+      "symbol": "ETHUSDT",
+      "price": 6166.96,
+      "qty": 3.164466,
+      "event_time_ms": 1770158435622,
+      "sent_at_ms": 1770158435622
+    },
+    {
+      "event_id": "96649a6d-3d89-4db6-8cdb-a2684b4a7c5a",
+      "symbol": "ETHUSDT",
+      "price": 5703.04,
+      "qty": 2.744517,
+      "event_time_ms": 1770158435622,
+      "sent_at_ms": 1770158435622
+    },
+    {
+      "event_id": "6562b29f-88cc-46cb-9ecf-b1e2dec92a13",
+      "symbol": "BTCUSDT",
+      "price": 34892.2,
+      "qty": 3.239559,
+      "event_time_ms": 1770158435622,
+      "sent_at_ms": 1770158435622
+    },
+    {
+      "event_id": "81d756b3-2afd-44c9-b369-5b8d00b99500",
+      "symbol": "BTCUSDT",
+      "price": 17276.06,
+      "qty": 2.762583,
+      "event_time_ms": 1770158435624,
+      "sent_at_ms": 1770158435624
+    },
+    {
+      "event_id": "7ae12643-0a5d-4cbf-9fd8-1f1fbbb430e8",
+      "symbol": "BTCUSDT",
+      "price": 37101.98,
+      "qty": 1.16219,
+      "event_time_ms": 1770158435633,
+      "sent_at_ms": 1770158435633
+    },
+    {
+      "event_id": "7eb12c5d-d916-4771-a34b-7d435f6843c5",
+      "symbol": "BTCUSDT",
+      "price": 41805.39,
+      "qty": 4.650362,
+      "event_time_ms": 1770158435634,
+      "sent_at_ms": 1770158435634
+    },
+    {
+      "event_id": "d3678a20-017d-459d-8cd1-5cf8df0d4005",
+      "symbol": "ETHUSDT",
+      "price": 37410.28,
+      "qty": 2.569674,
+      "event_time_ms": 1770158147170,
+      "sent_at_ms": 1770158435637
+    },
+    {
+      "event_id": "4ec6d351-efad-4669-9ff0-b7a2e0d69f7e",
+      "symbol": "SOLUSDT",
+      "price": 49798.56,
+      "qty": 3.456112,
+      "event_time_ms": 1770158166759,
+      "sent_at_ms": 1770158435634
+    },
+    {
+      "event_id": "065419ea-bf4d-4b03-830c-ed6e077e61ff",
+      "symbol": "SOLUSDT",
+      "price": 48005.67,
+      "qty": 1.689279,
+      "event_time_ms": 1770158317420,
+      "sent_at_ms": 1770158435640
+    },
+    {
+      "event_id": "134d5499-b5d8-4724-8f73-e228d503cc5a",
+      "symbol": "SOLUSDT",
+      "price": 22930.07,
+      "qty": 1.247929,
+      "event_time_ms": 1770158435652,
+      "sent_at_ms": 1770158435652
+    },
+    {
+      "event_id": "1c599c6b-24da-450e-ba6b-c0785b9ffd22",
+      "symbol": "SOLUSDT",
+      "price": 36304.08,
+      "qty": 2.224458,
+      "event_time_ms": 1770158435655,
+      "sent_at_ms": 1770158435655
+    },
+    {
+      "event_id": "39e1bf7f-0d6a-4408-89ab-19277c88a525",
+      "symbol": "SOLUSDT",
+      "price": 27192.87,
+      "qty": 3.130133,
+      "event_time_ms": 1770158324994,
+      "sent_at_ms": 1770158435666
+    },
+    {
+      "event_id": "5a1f4fd8-462f-4099-bbdc-40babebf54a8",
+      "symbol": "BTCUSDT",
+      "price": 25055.68,
+      "qty": 0.569378,
+      "event_time_ms": 1770158435649,
+      "sent_at_ms": 1770158435649
+    },
+    {
+      "event_id": "da0e8cba-657e-4edb-96c5-a0012e414b5c",
+      "symbol": "ETHUSDT",
+      "price": 17665.87,
+      "qty": 1.063083,
+      "event_time_ms": 1770158435649,
+      "sent_at_ms": 1770158435649
+    },
+    {
+      "event_id": "fd6c56cd-1963-4421-bdd7-95501077f994",
+      "symbol": "BTCUSDT",
+      "price": 27372.5,
+      "qty": 2.39857,
+      "event_time_ms": 1770158435658,
+      "sent_at_ms": 1770158435658
+    },
+    {
+      "event_id": "fd6c56cd-1963-4421-bdd7-95501077f994",
+      "symbol": "BTCUSDT",
+      "price": 27372.5,
+      "qty": 2.39857,
+      "event_time_ms": 1770158435658,
+      "sent_at_ms": 1770158435658
+    },
+    {
+      "event_id": "651da668-0210-4144-a8be-c8144c50af4f",
+      "symbol": "BTCUSDT",
+      "price": 4786.32,
+      "qty": 4.710903,
+      "event_time_ms": 1770158435672,
+      "sent_at_ms": 1770158435672
+    },
+    {
+      "event_id": "e3b90b77-9826-4bf7-bc5f-0667db83f8fa",
+      "symbol": "BTCUSDT",
+      "price": 10663.66,
+      "qty": 2.544087,
+      "event_time_ms": 1770158435674,
+      "sent_at_ms": 1770158435674
+    },
+    {
+      "event_id": "e3b90b77-9826-4bf7-bc5f-0667db83f8fa",
+      "symbol": "BTCUSDT",
+      "price": 10663.66,
+      "qty": 2.544087,
+      "event_time_ms": 1770158435674,
+      "sent_at_ms": 1770158435674
+    },
+    {
+      "event_id": "98eea290-f013-42a2-b6da-d282c615b3d2",
+      "symbol": "ETHUSDT",
+      "price": 7004.61,
+      "qty": 1.069437,
+      "event_time_ms": 1770158435681,
+      "sent_at_ms": 1770158435681
+    },
+    {
+      "event_id": "98eea290-f013-42a2-b6da-d282c615b3d2",
+      "symbol": "ETHUSDT",
+      "price": 7004.61,
+      "qty": 1.069437,
+      "event_time_ms": 1770158435681,
+      "sent_at_ms": 1770158435681
+    },
+    {
+      "event_id": "26ff5354-ba63-4002-896b-4de32867e216",
+      "symbol": "ETHUSDT",
+      "price": 29227.17,
+      "qty": 4.542605,
+      "event_time_ms": 1770158435691,
+      "sent_at_ms": 1770158435691
+    },
+    {
+      "event_id": "9105b939-2162-4a3d-af74-14009699b6ee",
+      "symbol": "ETHUSDT",
+      "price": 37309.66,
+      "qty": 0.215013,
+      "event_time_ms": 1770158190376,
+      "sent_at_ms": 1770158435694
+    },
+    {
+      "event_id": "12eb4fd7-53ba-4e5d-b520-8ceeb667f3d0",
+      "symbol": "ETHUSDT",
+      "price": 42339.27,
+      "qty": 4.539829,
+      "event_time_ms": 1770158435704,
+      "sent_at_ms": 1770158435704
+    },
+    {
+      "event_id": "4440d6e2-b7f8-4557-bd51-29bcbe5b59d3",
+      "symbol": "ETHUSDT",
+      "price": 16532.24,
+      "qty": 1.015743,
+      "event_time_ms": 1770158435707,
+      "sent_at_ms": 1770158435707
+    },
+    {
+      "event_id": "2890c314-085e-49f8-92ce-30c652471273",
+      "symbol": "BTCUSDT",
+      "price": 21538.52,
+      "qty": 1.473603,
+      "event_time_ms": 1770158435717,
+      "sent_at_ms": 1770158435717
+    },
+    {
+      "event_id": "5056cd90-53a7-4363-81f3-08155c809af5",
+      "symbol": "BTCUSDT",
+      "price": 33944.3,
+      "qty": 2.330373,
+      "event_time_ms": 1770158435722,
+      "sent_at_ms": 1770158435722
+    },
+    {
+      "event_id": "e369c510-4d56-47a6-9cd0-0d9db31e5629",
+      "symbol": "ETHUSDT",
+      "price": 49266.99,
+      "qty": 3.544799,
+      "event_time_ms": 1770158435726,
+      "sent_at_ms": 1770158435726
+    },
+    {
+      "event_id": "5dd3fb8a-fb17-4b28-9f8d-b9abffdcbe83",
+      "symbol": "BTCUSDT",
+      "price": 25517.52,
+      "qty": 0.492533,
+      "event_time_ms": 1770158335919,
+      "sent_at_ms": 1770158435727
+    },
+    {
+      "event_id": "3f0d0c40-b530-451b-a0d8-c43fa621eaa7",
+      "symbol": "ETHUSDT",
+      "price": 33201.79,
+      "qty": 0.795787,
+      "event_time_ms": 1770158180402,
+      "sent_at_ms": 1770158435733
+    },
+    {
+      "event_id": "94eb30ab-b33b-4116-bf83-4acb5c43395c",
+      "symbol": "BTCUSDT",
+      "price": 11868.95,
+      "qty": 1.949001,
+      "event_time_ms": 1770158435734,
+      "sent_at_ms": 1770158435734
+    },
+    {
+      "event_id": "71f0da11-8dc7-4cde-815a-b79e6f31fb81",
+      "symbol": "BTCUSDT",
+      "price": 8216.62,
+      "qty": 4.466398,
+      "event_time_ms": 1770158435741,
+      "sent_at_ms": 1770158435741
+    },
+    {
+      "event_id": "6c7749e4-cb1d-4cf5-ab6e-287e91356209",
+      "symbol": "BTCUSDT",
+      "price": 25411.64,
+      "qty": 3.908472,
+      "event_time_ms": 1770158435744,
+      "sent_at_ms": 1770158435744
+    },
+    {
+      "event_id": "35daecee-7a16-42de-aca7-4a8107bb21c1",
+      "symbol": "ETHUSDT",
+      "price": 13858.5,
+      "qty": 0.905488,
+      "event_time_ms": 1770158435748,
+      "sent_at_ms": 1770158435748
+    },
+    {
+      "event_id": "42b2c11b-6c1d-40f0-8b6d-e8a6688c3403",
+      "symbol": "ETHUSDT",
+      "price": 43240.47,
+      "qty": 2.018874,
+      "event_time_ms": 1770158435751,
+      "sent_at_ms": 1770158435751
+    },
+    {
+      "event_id": "cffbcf97-a1a3-4d01-b486-f04afcc12973",
+      "symbol": "SOLUSDT",
+      "price": 11749.64,
+      "qty": 4.184989,
+      "event_time_ms": 1770158435667,
+      "sent_at_ms": 1770158435667
+    },
+    {
+      "event_id": "88261a40-76dd-4989-a323-ef739cca3df5",
+      "symbol": "SOLUSDT",
+      "price": 40403.48,
+      "qty": 0.911898,
+      "event_time_ms": 1770158311285,
+      "sent_at_ms": 1770158435690
+    },
+    {
+      "event_id": "c40ba5b0-2a21-4b1f-9202-315082a7473b",
+      "symbol": "SOLUSDT",
+      "price": 27121.38,
+      "qty": 0.586619,
+      "event_time_ms": 1770158275508,
+      "sent_at_ms": 1770158435696
+    },
+    {
+      "event_id": "8c34587f-0085-45ce-aa96-27917464f2b4",
+      "symbol": "SOLUSDT",
+      "price": 12214.88,
+      "qty": 2.091718,
+      "event_time_ms": 1770158153506,
+      "sent_at_ms": 1770158435707
+    },
+    {
+      "event_id": "133110ca-efd9-4a8b-89d1-d838d99df7fa",
+      "symbol": "SOLUSDT",
+      "price": 38013.56,
+      "qty": 1.190768,
+      "event_time_ms": 1770158435710,
+      "sent_at_ms": 1770158435710
+    },
+    {
+      "event_id": "c4d0e9c6-b2cf-4ab3-9d85-8a2b62d66c72",
+      "symbol": "SOLUSDT",
+      "price": 49006.83,
+      "qty": 0.05425,
+      "event_time_ms": 1770158435724,
+      "sent_at_ms": 1770158435724
+    },
+    {
+      "event_id": "e1e6f40f-b97a-456f-ad01-3d3c4382c709",
+      "symbol": "SOLUSDT",
+      "price": 21854.72,
+      "qty": 4.156364,
+      "event_time_ms": 1770158435737,
+      "sent_at_ms": 1770158435737
+    },
+    {
+      "event_id": "cc16cf2d-6f62-41ff-b167-81277d7ef956",
+      "symbol": "SOLUSDT",
+      "price": 37379.79,
+      "qty": 0.39194,
+      "event_time_ms": 1770158435765,
+      "sent_at_ms": 1770158435765
+    },
+    {
+      "event_id": "627a2181-ba9c-41ac-8a15-8c8fe69b4632",
+      "symbol": "SOLUSDT",
+      "price": 13338.01,
+      "qty": 1.517242,
+      "event_time_ms": 1770158435769,
+      "sent_at_ms": 1770158435769
+    },
+    {
+      "event_id": "179eb358-14ec-4f03-a4ff-81e47573bad1",
+      "symbol": "SOLUSDT",
+      "price": 8168.05,
+      "qty": 2.167821,
+      "event_time_ms": 1770158435769,
+      "sent_at_ms": 1770158435769
+    },
+    {
+      "event_id": "f0dcdd24-483a-4f85-9e07-e8421f75bb56",
+      "symbol": "SOLUSDT",
+      "price": 22904.22,
+      "qty": 1.809399,
+      "event_time_ms": 1770158435771,
+      "sent_at_ms": 1770158435771
+    },
+    {
+      "event_id": "b70098dd-0e87-4709-a125-47d48fe607b3",
+      "symbol": "SOLUSDT",
+      "price": 36366.1,
+      "qty": 2.67384,
+      "event_time_ms": 1770158435801,
+      "sent_at_ms": 1770158435801
+    },
+    {
+      "event_id": "adfa1b71-21cd-4ba3-87bf-2a007dc11811",
+      "symbol": "SOLUSDT",
+      "price": 37488.22,
+      "qty": 1.160868,
+      "event_time_ms": 1770158435811,
+      "sent_at_ms": 1770158435811
+    },
+    {
+      "event_id": "42b2c11b-6c1d-40f0-8b6d-e8a6688c3403",
+      "symbol": "ETHUSDT",
+      "price": 43240.47,
+      "qty": 2.018874,
+      "event_time_ms": 1770158435751,
+      "sent_at_ms": 1770158435751
+    },
+    {
+      "event_id": "517e0498-2ec2-445f-aa7c-944c7353f48a",
+      "symbol": "ETHUSDT",
+      "price": 5565.92,
+      "qty": 3.885142,
+      "event_time_ms": 1770158307601,
+      "sent_at_ms": 1770158435769
+    },
+    {
+      "event_id": "fae5004f-1933-4c2c-9a5b-62093f6ffd73",
+      "symbol": "BTCUSDT",
+      "price": 43261.6,
+      "qty": 4.970018,
+      "event_time_ms": 1770158435785,
+      "sent_at_ms": 1770158435785
+    },
+    {
+      "event_id": "fae5004f-1933-4c2c-9a5b-62093f6ffd73",
+      "symbol": "BTCUSDT",
+      "price": 43261.6,
+      "qty": 4.970018,
+      "event_time_ms": 1770158435785,
+      "sent_at_ms": 1770158435785
+    },
+    {
+      "event_id": "67708559-7022-4e65-8387-f7623a330034",
+      "symbol": "ETHUSDT",
+      "price": 9437.18,
+      "qty": 1.691659,
+      "event_time_ms": 1770158435788,
+      "sent_at_ms": 1770158435788
+    },
+    {
+      "event_id": "a007e136-52a8-4dac-8a00-2b5461b8947f",
+      "symbol": "ETHUSDT",
+      "price": 3423.29,
+      "qty": 0.077314,
+      "event_time_ms": 1770158435788,
+      "sent_at_ms": 1770158435788
+    },
+    {
+      "event_id": "23b69041-9aeb-498f-8f28-f9ba4d628eb7",
+      "symbol": "ETHUSDT",
+      "price": 1629.06,
+      "qty": 1.287137,
+      "event_time_ms": 1770158435788,
+      "sent_at_ms": 1770158435788
+    },
+    {
+      "event_id": "6f190b2e-468b-4b26-b5d2-c88d712cb915",
+      "symbol": "BTCUSDT",
+      "price": 27122.63,
+      "qty": 1.537849,
+      "event_time_ms": 1770158435791,
+      "sent_at_ms": 1770158435791
+    },
+    {
+      "event_id": "e6866a4a-a972-4d93-9ef8-839e9775375e",
+      "symbol": "BTCUSDT",
+      "price": 20033.2,
+      "qty": 3.083345,
+      "event_time_ms": 1770158435794,
+      "sent_at_ms": 1770158435794
+    },
+    {
+      "event_id": "61a38a3a-b341-4616-bfc5-cae5fec2d058",
+      "symbol": "BTCUSDT",
+      "price": 39842.66,
+      "qty": 4.057942,
+      "event_time_ms": 1770158435802,
+      "sent_at_ms": 1770158435802
+    },
+    {
+      "event_id": "b4369b01-f310-41b4-a694-609230bf250b",
+      "symbol": "ETHUSDT",
+      "price": 13694.07,
+      "qty": 2.342555,
+      "event_time_ms": 1770158435804,
+      "sent_at_ms": 1770158435804
+    },
+    {
+      "event_id": "9fc6a57d-dc08-49ca-a213-dbabdac8df39",
+      "symbol": "ETHUSDT",
+      "price": 8649.09,
+      "qty": 3.264699,
+      "event_time_ms": 1770158435807,
+      "sent_at_ms": 1770158435807
+    },
+    {
+      "event_id": "7605bd05-baa8-4866-a7d8-e93e7a0c4e94",
+      "symbol": "ETHUSDT",
+      "price": 11198.37,
+      "qty": 1.148795,
+      "event_time_ms": 1770158435814,
+      "sent_at_ms": 1770158435814
+    },
+    {
+      "event_id": "d8da582a-de79-47cc-982d-849a4d16ff61",
+      "symbol": "ETHUSDT",
+      "price": 47832.2,
+      "qty": 0.176067,
+      "event_time_ms": 1770158203398,
+      "sent_at_ms": 1770158435833
+    },
+    {
+      "event_id": "c2c12444-d5fb-4e03-86b0-eaa7532c52ee",
+      "symbol": "ETHUSDT",
+      "price": 32296.17,
+      "qty": 1.647195,
+      "event_time_ms": 1770158435834,
+      "sent_at_ms": 1770158435834
+    },
+    {
+      "event_id": "a373d9ec-d3ba-41d4-a6a9-407754fcab30",
+      "symbol": "BTCUSDT",
+      "price": 22390.65,
+      "qty": 2.779881,
+      "event_time_ms": 1770158435834,
+      "sent_at_ms": 1770158435834
+    },
+    {
+      "event_id": "eb62c488-6a76-40e8-8bdb-77f3fd12009a",
+      "symbol": "ETHUSDT",
+      "price": 20892.86,
+      "qty": 3.725557,
+      "event_time_ms": 1770158435844,
+      "sent_at_ms": 1770158435844
+    },
+    {
+      "event_id": "b97759bb-f805-4951-96d2-3d7ea9abf240",
+      "symbol": "ETHUSDT",
+      "price": 34695.03,
+      "qty": 0.464453,
+      "event_time_ms": 1770158435845,
+      "sent_at_ms": 1770158435845
+    },
+    {
+      "event_id": "a593c983-0ccc-4d49-9396-175587c4654b",
+      "symbol": "ETHUSDT",
+      "price": 32910.43,
+      "qty": 4.95097,
+      "event_time_ms": 1770158435846,
+      "sent_at_ms": 1770158435846
+    },
+    {
+      "event_id": "210cd9d8-4121-4a89-a2be-7fa2e25fa5a2",
+      "symbol": "BTCUSDT",
+      "price": 22095.18,
+      "qty": 2.029495,
+      "event_time_ms": 1770158435848,
+      "sent_at_ms": 1770158435848
+    },
+    {
+      "event_id": "5e2032a9-0806-47e1-b2b5-91f905c18bd8",
+      "symbol": "BTCUSDT",
+      "price": 9498.93,
+      "qty": 3.220146,
+      "event_time_ms": 1770158435851,
+      "sent_at_ms": 1770158435851
+    },
+    {
+      "event_id": "9aa3e740-6f92-404e-b7a3-f5d2f3fae39a",
+      "symbol": "ETHUSDT",
+      "price": 45044.33,
+      "qty": 3.030032,
+      "event_time_ms": 1770158435854,
+      "sent_at_ms": 1770158435854
+    },
+    {
+      "event_id": "81748464-cb2a-4b6a-bfd5-20abe9357e2a",
+      "symbol": "BTCUSDT",
+      "price": 34446.52,
+      "qty": 4.225435,
+      "event_time_ms": 1770158435861,
+      "sent_at_ms": 1770158435861
+    },
+    {
+      "event_id": "36ff76d9-1687-4126-b5c6-a57d2caef990",
+      "symbol": "SOLUSDT",
+      "price": 38921.77,
+      "qty": 1.465156,
+      "event_time_ms": 1770158435834,
+      "sent_at_ms": 1770158435834
+    },
+    {
+      "event_id": "5ad81901-9476-4b31-b644-7ac510b291e8",
+      "symbol": "SOLUSDT",
+      "price": 47296.19,
+      "qty": 0.173088,
+      "event_time_ms": 1770158435842,
+      "sent_at_ms": 1770158435842
+    },
+    {
+      "event_id": "17a0fab7-3415-45a8-a191-48f60f9ef915",
+      "symbol": "ETHUSDT",
+      "price": 4014.47,
+      "qty": 4.433017,
+      "event_time_ms": 1770158435870,
+      "sent_at_ms": 1770158435870
+    },
+    {
+      "event_id": "eca17082-b7b7-4d70-966e-0828bee06d62",
+      "symbol": "BTCUSDT",
+      "price": 34905.14,
+      "qty": 2.157249,
+      "event_time_ms": 1770158253700,
+      "sent_at_ms": 1770158435874
+    },
+    {
+      "event_id": "0856718c-6018-4e68-a7e8-20bd35203425",
+      "symbol": "ETHUSDT",
+      "price": 7416.76,
+      "qty": 1.200488,
+      "event_time_ms": 1770158435881,
+      "sent_at_ms": 1770158435881
+    }
+  ]
+}
