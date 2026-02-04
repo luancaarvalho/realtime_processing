@@ -7,3 +7,6 @@ dependencies:
   - pip:
       - confluent-kafka
       - orjson
+      - numpy
+      - seaborn
+      - matplotlib
