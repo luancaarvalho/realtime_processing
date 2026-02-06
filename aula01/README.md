@@ -131,4 +131,53 @@ Observe nos prints:
 
 ## Stack usada nas demos
 
-Python 3.10+ + Kafka (confluent-kafka) + orjson em todas as 3 demos.
+Python 3.10+ + Kafka (confluent-kafka) + orjson em todas as demos.
+
+## 7. Demo 4 — Streaming joins (stream-static e stream-stream)
+
+Gerar o batch deterministico (1000 registros, 1 por minuto de event-time):
+
+```bash
+python aula01/demo04/demo4_producer.py
+```
+
+### Stream-static (enriquecimento com tabela fixa)
+
+```bash
+python aula01/demo04/demo4_join_static.py
+```
+
+### Stream-stream (correlacao entre fluxos)
+
+```bash
+python aula01/demo04/demo4_join_stream.py
+```
+
+Ao final, ambos imprimem `dlq_count` com eventos sem par.
+
+## 8. Demo 5 — Event-time vs Processing-time (plot)
+
+Gerar batch fixo (50 registros, janela 10min, watermark 5min):
+
+```bash
+python aula01/demo05/demo5_producer.py --seed 42
+```
+
+Consumer com grafico (gera CSV + SVG):
+
+```bash
+python aula01/demo05/demo5_consumer_plot.py
+```
+
+Consumer para desafio (nao plota):
+
+```bash
+python aula01/demo05/demo5_consumer_exercise.py
+```
+
+No final, imprime `dlq_count` (vermelhos).
+
+
+## Stack usada nas demos
+
+Python 3.10+ + Kafka (confluent-kafka) + orjson em todas as demos.

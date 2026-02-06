@@ -50,6 +50,33 @@ def main():
                 config={"min.insync.replicas": "1"},
             )
         )
+    if "order_created" not in existing:
+        topics.append(
+            NewTopic(
+                "order_created",
+                num_partitions=1,
+                replication_factor=1,
+                config={"min.insync.replicas": "1"},
+            )
+        )
+    if "payment_confirmed" not in existing:
+        topics.append(
+            NewTopic(
+                "payment_confirmed",
+                num_partitions=1,
+                replication_factor=1,
+                config={"min.insync.replicas": "1"},
+            )
+        )
+    if "rt.events.etpt" not in existing:
+        topics.append(
+            NewTopic(
+                "rt.events.etpt",
+                num_partitions=1,
+                replication_factor=1,
+                config={"min.insync.replicas": "1"},
+            )
+        )
 
     if not topics:
         print("topics already exist")
