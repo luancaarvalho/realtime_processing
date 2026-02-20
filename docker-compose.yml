@@ -1,5 +1,31 @@
 version: "3.8"
 
+x-app-common: &bf-app-common
+  build:
+    context: ./trabalho/app
+  working_dir: /app
+  environment:
+    PYTHONUNBUFFERED: "1"
+    KAFKA_BOOTSTRAP_SERVERS: kafka:29092,kafka-2:29093,kafka-3:29094
+    KAFKA_TOPIC_ORDERS: blackfriday_orders
+    MINIO_ENDPOINT: http://minio:9000
+    MINIO_ACCESS_KEY: minioadmin
+    MINIO_SECRET_KEY: minioadmin
+    MINIO_BUCKET: lakehouse
+    # Variáveis abaixo ficam para quando a turma habilitar processamento/dashboard:
+    # ICEBERG_CATALOG_URI: sqlite:////app/data/out/pyiceberg_catalog.db
+    # ICEBERG_NAMESPACE: blackfriday
+    # ICEBERG_TABLE: orders_events
+    # DASHBOARD_METRICS_KEY: metrics/dashboard_latest.json
+  volumes:
+    - ./trabalho/app/src:/app/src
+    - ./trabalho/data:/app/data
+  depends_on:
+    - kafka
+    - kafka-2
+    - kafka-3
+    - minio
+
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:7.4.3
@@ -185,6 +211,74 @@ services:
         cp /tmp/mysql-connector-j-8.0.33.jar /usr/share/confluent-hub-components/confluentinc-kafka-connect-jdbc/lib/
         echo "Starting Kafka Connect..."
         /etc/confluent/docker/run
+
+  minio:
+    image: minio/minio:RELEASE.2025-01-20T14-49-07Z
+    container_name: bf-minio
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - bf-minio-data:/data
+
+  bf-topic-init:
+    <<: *bf-app-common
+    container_name: bf-topic-init
+    command: ["python", "src/topic_setup.py"]
+    restart: on-failure
+
+  bf-seed-bootstrap:
+    <<: *bf-app-common
+    container_name: bf-seed-bootstrap
+    depends_on:
+      bf-topic-init:
+        condition: service_completed_successfully
+    command: ["python", "src/bootstrap_seed.py"]
+    restart: on-failure
+
+  bf-generator:
+    <<: *bf-app-common
+    container_name: bf-generator
+    depends_on:
+      bf-topic-init:
+        condition: service_completed_successfully
+    command: ["python", "src/stream_generator.py"]
+    restart: unless-stopped
+
+  # Processamento em tempo real (comentado para aula focada em geradores):
+  # bf-processor:
+  #   <<: *bf-app-common
+  #   container_name: bf-processor
+  #   depends_on:
+  #     bf-seed-bootstrap:
+  #       condition: service_completed_successfully
+  #   command: ["python", "src/stream_processor.py"]
+  #   restart: unless-stopped
+
+  # Dashboard em tempo real (comentado para aula focada em geradores):
+  # bf-dashboard:
+  #   <<: *bf-app-common
+  #   container_name: bf-dashboard
+  #   depends_on:
+  #     bf-processor:
+  #       condition: service_started
+  #   command:
+  #     - streamlit
+  #     - run
+  #     - src/dashboard.py
+  #     - --server.address=0.0.0.0
+  #     - --server.port=8501
+  #     - --browser.gatherUsageStats=false
+  #   ports:
+  #     - "8505:8501"
+  #   restart: unless-stopped
+
+volumes:
+  bf-minio-data:
 
 networks:
   default:
