@@ -1,8 +1,8 @@
 import argparse
-import time
 
 import orjson
 from confluent_kafka import Consumer, KafkaError, KafkaException
+import matplotlib.pyplot as plt
 
 
 def classify(event_time_ms, processing_time_ms, watermark_ms, on_time_ms):
@@ -23,6 +23,18 @@ def main():
     parser.add_argument("--watermark_min", type=int, default=5)
     parser.add_argument("--window_min", type=int, default=10)
     parser.add_argument("--on_time_sec", type=int, default=60)
+
+    # saída do gráfico
+    parser.add_argument("--out", default="grafico.png")
+    parser.add_argument("--dpi", type=int, default=200)
+
+    # alterna tempo relativo vs absoluto
+    parser.add_argument(
+        "--relative-time",
+        action="store_true",
+        help="Usa segundos relativos a t0 (menor timestamp observado)",
+    )
+
     args = parser.parse_args()
 
     consumer = Consumer(
@@ -40,6 +52,10 @@ def main():
 
     max_event_time_ms = None
     counts = {"green": 0, "orange": 0, "red": 0}
+    # armazenar pontos
+    xs = []  # processing_time_ms
+    ys = []  # event_time_ms
+    cs = []  # cor
 
     try:
         processed = 0
@@ -69,14 +85,70 @@ def main():
             color = classify(event_time_ms, processing_time_ms, current_watermark, on_time_ms)
             counts[color] += 1
             processed += 1
+            xs.append(processing_time_ms)
+            ys.append(event_time_ms)
+            cs.append(color)
 
             consumer.commit(message=msg, asynchronous=False)
     finally:
         consumer.close()
 
-    print(f"green={counts['green']} orange={counts['orange']} red={counts['red']}")
-    print(f"dlq_count={counts['red']}")
-    print("TODO: gerar grafico com processing_time (x) vs event_time (y) usando cores")
+    # ======================
+    # Preparar eixos (absoluto vs relativo)
+    # ======================
+    if not xs or not ys:
+        raise RuntimeError("Nenhum ponto coletado para plotar (tópico vazio?)")
+
+    if args.relative_time:
+        t0 = min(min(xs), min(ys))
+        xs_plot = [(x - t0) / 1000 for x in xs]  # segundos
+        ys_plot = [(y - t0) / 1000 for y in ys]  # segundos
+        xlabel = "processing_time (s) desde t0"
+        ylabel = "event_time (s) desde t0"
+        title_suffix = " (segundos relativos)"
+    else:
+        xs_plot = xs  # ms
+        ys_plot = ys  # ms
+        xlabel = "processing_time (ms)"
+        ylabel = "event_time (ms)"
+        title_suffix = " (timestamps absolutos)"
+
+    # ======================
+    # Gráfico
+    # ======================
+    fig, ax = plt.subplots(figsize=(8, 6))
+
+    for label, color in [
+        ("on-time", "green"),
+        ("late (within watermark)", "orange"),
+        ("DLQ", "red"),
+    ]:
+        idx = [i for i, c in enumerate(cs) if c == color]
+        if idx:
+            ax.scatter(
+                [xs_plot[i] for i in idx],
+                [ys_plot[i] for i in idx],
+                s=22,
+                alpha=0.8,
+                label=label,
+                c=color,
+            )
+
+    # linha y = x
+    mn = min(min(xs_plot), min(ys_plot))
+    mx = max(max(xs_plot), max(ys_plot))
+    ax.plot([mn, mx], [mn, mx], linestyle="--", linewidth=1.5)
+
+    ax.set_title("processing_time (x) vs event_time (y)" + title_suffix)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.legend()
+    ax.grid(True, alpha=0.25)
+
+    fig.tight_layout()
+    fig.savefig(args.out, dpi=args.dpi)
+
+    print(f"saved_plot={args.out}")
 
 
 if __name__ == "__main__":
