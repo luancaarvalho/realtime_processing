@@ -1,5 +1,3 @@
-version: "3.8"
-
 x-app-common: &bf-app-common
   build:
     context: ./trabalho/app
@@ -12,11 +10,10 @@ x-app-common: &bf-app-common
     MINIO_ACCESS_KEY: minioadmin
     MINIO_SECRET_KEY: minioadmin
     MINIO_BUCKET: lakehouse
-    # Variáveis abaixo ficam para quando a turma habilitar processamento/dashboard:
-    # ICEBERG_CATALOG_URI: sqlite:////app/data/out/pyiceberg_catalog.db
-    # ICEBERG_NAMESPACE: blackfriday
-    # ICEBERG_TABLE: orders_events
-    # DASHBOARD_METRICS_KEY: metrics/dashboard_latest.json
+    ICEBERG_CATALOG_URI: sqlite:////app/data/out/pyiceberg_catalog.db
+    ICEBERG_NAMESPACE: blackfriday
+    ICEBERG_TABLE: orders_events
+    DASHBOARD_METRICS_KEY: metrics/dashboard_latest.json
   volumes:
     - ./trabalho/app/src:/app/src
     - ./trabalho/data:/app/data
@@ -212,6 +209,72 @@ services:
         echo "Starting Kafka Connect..."
         /etc/confluent/docker/run
 
+
+  ksqldb-server:
+    image: confluentinc/cp-ksqldb-server:7.4.3
+    container_name: ksqldb-server
+    depends_on:
+      - kafka
+      - kafka-2
+      - kafka-3
+      - schema-registry
+    ports:
+      - "8088:8088"
+    environment:
+      KSQL_BOOTSTRAP_SERVERS: "kafka:29092,kafka-2:29093,kafka-3:29094"
+      KSQL_LISTENERS: "http://0.0.0.0:8088"
+      KSQL_KSQL_SERVICE_ID: "ksql-service"
+      KSQL_KSQL_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
+      KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE: "true"
+      KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE: "true"
+      KSQL_KSQL_INTERNAL_TOPIC_REPLICAS: 3
+      KSQL_KSQL_INTERNAL_TOPIC_MIN_INSYNC_REPLICAS: 3
+      KSQL_KSQL_STREAMS_REPLICATION_FACTOR: 3
+
+  ksqldb-cli:
+    image: confluentinc/cp-ksqldb-cli:7.4.3
+    container_name: ksqldb-cli
+    depends_on:
+      - ksqldb-server
+    entrypoint: ["/bin/sh"]
+    tty: true
+
+  pinot-controller:
+    image: apachepinot/pinot:latest
+    container_name: pinot-controller
+    command:
+      - StartController
+      - -zkAddress
+      - zookeeper:2181
+    depends_on:
+      - zookeeper
+    ports:
+      - "19000:9000"
+
+  pinot-broker:
+    image: apachepinot/pinot:latest
+    container_name: pinot-broker
+    command:
+      - StartBroker
+      - -zkAddress
+      - zookeeper:2181
+    depends_on:
+      - pinot-controller
+    ports:
+      - "18099:8099"
+
+  pinot-server:
+    image: apachepinot/pinot:latest
+    container_name: pinot-server
+    command:
+      - StartServer
+      - -zkAddress
+      - zookeeper:2181
+    depends_on:
+      - pinot-controller
+    ports:
+      - "18098:8098"
+
   minio:
     image: minio/minio:RELEASE.2025-01-20T14-49-07Z
     container_name: bf-minio
@@ -249,33 +312,31 @@ services:
     command: ["python", "src/stream_generator.py"]
     restart: unless-stopped
 
-  # Processamento em tempo real (comentado para aula focada em geradores):
-  # bf-processor:
-  #   <<: *bf-app-common
-  #   container_name: bf-processor
-  #   depends_on:
-  #     bf-seed-bootstrap:
-  #       condition: service_completed_successfully
-  #   command: ["python", "src/stream_processor.py"]
-  #   restart: unless-stopped
+  bf-processor:
+    <<: *bf-app-common
+    container_name: bf-processor
+    depends_on:
+      bf-seed-bootstrap:
+        condition: service_completed_successfully
+    command: ["python", "src/stream_processor.py"]
+    restart: unless-stopped
 
-  # Dashboard em tempo real (comentado para aula focada em geradores):
-  # bf-dashboard:
-  #   <<: *bf-app-common
-  #   container_name: bf-dashboard
-  #   depends_on:
-  #     bf-processor:
-  #       condition: service_started
-  #   command:
-  #     - streamlit
-  #     - run
-  #     - src/dashboard.py
-  #     - --server.address=0.0.0.0
-  #     - --server.port=8501
-  #     - --browser.gatherUsageStats=false
-  #   ports:
-  #     - "8505:8501"
-  #   restart: unless-stopped
+  bf-dashboard:
+    <<: *bf-app-common
+    container_name: bf-dashboard
+    depends_on:
+      bf-processor:
+        condition: service_started
+    command:
+      - streamlit
+      - run
+      - src/dashboard.py
+      - --server.address=0.0.0.0
+      - --server.port=8501
+      - --browser.gatherUsageStats=false
+    ports:
+      - "8505:8501"
+    restart: unless-stopped
 
 volumes:
   bf-minio-data:
@@ -283,3 +344,4 @@ volumes:
 networks:
   default:
     name: kafka_net
+    external: true
