@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import json
 import time
 from typing import Any
@@ -82,8 +83,8 @@ def wait_http(url: str, timeout_s: int = 120) -> None:
         time.sleep(2)
 
 
-def ensure_topic() -> None:
-    admin = AdminClient({"bootstrap.servers": KAFKA_BOOTSTRAP})
+def ensure_topic(bootstrap_servers: str) -> None:
+    admin = AdminClient({"bootstrap.servers": bootstrap_servers})
     metadata = admin.list_topics(timeout=10)
     if TOPIC in metadata.topics:
         print(f"Kafka topic ja existe: {TOPIC}")
@@ -142,10 +143,14 @@ def create_table_with_retry(retries: int = 20, sleep_s: int = 3) -> None:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description="Configura topic + schema/table do demo Pinot Upsert")
+    parser.add_argument("--bootstrap", default=KAFKA_BOOTSTRAP)
+    args = parser.parse_args()
+
     print("Aguardando Pinot Controller...")
     wait_http(f"{PINOT_CONTROLLER}/health")
 
-    ensure_topic()
+    ensure_topic(args.bootstrap)
 
     # Recria schema/tabela para a demo ser reexecutavel.
     delete_if_exists(f"/tables/{TABLE_NAME}")
