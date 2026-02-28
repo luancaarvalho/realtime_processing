@@ -92,9 +92,3 @@ streamlit run app/src/dashboard.py --server.port 8505
 ```
 
 Observação: se estiver rodando em containers, adapte caminhos e variáveis de ambiente conforme o `Dockerfile` e compose.
-
-## Observabilidade e pontos de atenção
-
-- O `stream_processor.py` faz INSERTs síncronos em DuckDB; para cargas maiores, considerar batching antes do insert (reduzir overhead de conexão).  
-- Falta monitoramento/metrics expostas (p. ex. contadores processados, latência). Recomendo adicionar logging estruturado e um contador de registros lidos/escritos.  
-- O dashboard atualmente requer refresh manual; para real-time mais suave, implementar polling (`st_autorefresh`) ou persistir um JSON com KPIs em MinIO e fazer o dashboard buscar esse JSON periodicamente.
