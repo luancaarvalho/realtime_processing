@@ -8,3 +8,4 @@ pyiceberg[s3fs,sql-sqlite]==0.8.1
 streamlit==1.40.2
 pandas==2.2.3
 plotly==5.24.1
+duckdb

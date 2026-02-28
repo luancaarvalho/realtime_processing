@@ -151,7 +151,7 @@ services:
     image: postgres:15-alpine
     container_name: postgres
     ports:
-      - "5432:5432"
+      - "5433:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgrespassword
@@ -208,7 +208,6 @@ services:
         cp /tmp/mysql-connector-j-8.0.33.jar /usr/share/confluent-hub-components/confluentinc-kafka-connect-jdbc/lib/
         echo "Starting Kafka Connect..."
         /etc/confluent/docker/run
-
 
   ksqldb-server:
     image: confluentinc/cp-ksqldb-server:7.4.3
