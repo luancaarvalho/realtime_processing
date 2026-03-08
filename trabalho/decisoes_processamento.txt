@@ -1,0 +1,130 @@
+DECISÕES DE PROCESSAMENTO — PIPELINE BLACK FRIDAY
+==================================================
+
+VISÃO GERAL DO FLUXO
+---------------------
+Kafka → stream_processor.py (Polars) → PostgreSQL → Metabase
+
+O princípio central que guiou todas as decisões é:
+  "Toda regra de negócio vive na camada de processamento (Polars).
+   O banco de dados é storage. A visualização é exibição."
+
+
+1. POR QUE POLARS PARA PROCESSAMENTO
+--------------------------------------
+Polars opera em memória com execução lazy e vetorizada (Apache Arrow).
+Para batches de até ~200k linhas (escala desta simulação), é significativamente
+mais rápido que pandas e elimina a necessidade de SQL analítico complexo.
+
+A função _compute_all_kpis() é o único lugar onde regras de negócio existem:
+filtragem de status, cálculo de margens, taxas, rankings e metas. Se uma regra
+mudar (ex: novo critério de cancelamento), o ajuste é feito em um único arquivo.
+
+
+2. FONTE DE VERDADE ÚNICA: raw_events
+---------------------------------------
+A cada flush, o processador:
+  1. Insere os novos eventos em raw_events (ON CONFLICT DO NOTHING)
+  2. Lê TODO o raw_events de volta para um DataFrame Polars
+  3. Recalcula 100% dos KPIs a partir do zero
+
+Alternativa descartada: acumular deltas incrementais em memória.
+Motivo: o consumer usa enable.auto.commit=False com commit manual após escrita.
+Se o processo reiniciar antes do commit Kafka, os mesmos eventos serão
+reprocessados. Com recálculo total, os totais são sempre corretos sem
+necessidade de subtrair ou rastrear o que já foi contabilizado.
+
+
+3. IDEMPOTÊNCIA EM DOIS NÍVEIS
+--------------------------------
+Nível 1 — raw_events:
+  INSERT ... ON CONFLICT (event_id) DO NOTHING
+  Eventos duplicados (replay Kafka) são silenciosamente descartados.
+
+Nível 2 — tabelas KPI:
+  INSERT ... ON CONFLICT (pk) DO UPDATE SET col = EXCLUDED.col
+  Cada flush sobrescreve os KPIs com os valores recém-calculados pelo Polars.
+  Não há acumulação: o valor na tabela é sempre o resultado do último cálculo completo.
+
+
+4. SQL COMO STORAGE PURO
+--------------------------
+O PostgreSQL não faz nenhum cálculo de negócio. Os UPSERTs nas tabelas kpi_*
+apenas gravam valores já prontos vindos do Polars:
+  - Nenhum SUM(), AVG() ou cálculo dentro do INSERT/UPDATE
+  - Nenhuma view ou trigger com lógica de negócio
+  - Nenhum JOIN analítico no banco
+
+Isso torna o banco substituível (poderia ser qualquer outro que suporte UPSERT)
+sem impacto nas regras de negócio.
+
+
+5. POR QUE O METABASE SÓ FAZ SELECT SIMPLES
+---------------------------------------------
+Todas as métricas que o Metabase exibe já estão calculadas e nomeadas
+de forma semântica nas colunas do PostgreSQL:
+
+  gross_margin_pct       → já em percentual (ex: 21.00 = 21%)
+  meta_achievement_pct   → já em percentual (ex: 44.00 = 44% da meta)
+  gmv_rank               → ranking de 1 a N já computado
+  cancellation_rate_pct  → taxa de cancelamento já aplicada
+  return_rate_pct        → taxa de devolução já aplicada
+  avg_discount_pct       → desconto médio já em percentual
+  pct_of_total           → participação percentual por status
+
+O Metabase executa apenas:
+  SELECT coluna FROM tabela ORDER BY coluna
+
+Sem fórmulas, sem CASE WHEN, sem divisões, sem JOINs entre tabelas KPI.
+Isso evita inconsistências (cada analista calculando margem de forma diferente)
+e garante que todos os dashboards mostram exatamente o que o pipeline definiu.
+
+
+6. SEPARAÇÃO PAID / ALL STATUSES
+----------------------------------
+KPIs financeiros (GMV, lucro, margem, ticket médio) contam apenas eventos PAID.
+Métricas operacionais (taxas de cancelamento, devolução) consideram todos os status.
+Esta separação é aplicada no Polars via filter() antes de cada grupo de agregações,
+não no SQL e não no Metabase.
+
+
+7. ESTRUTURA DE TABELAS KPI
+-----------------------------
+Uma tabela por dimensão analítica, cada uma com sua chave natural:
+
+  kpi_clevel   (id=1)      — visão executiva, linha única
+  kpi_seller   (seller_id) — performance por vendedor + meta vs realizado
+  kpi_category (category)  — controladoria por categoria de produto
+  kpi_channel  (channel)   — performance por canal de venda
+  kpi_status   (status)    — resumo de cancelamentos e devoluções
+
+Esta estrutura permite que cada seção do dashboard Metabase consulte
+exatamente uma tabela, sem necessidade de JOIN entre tabelas KPI.
+
+
+8. BATCHING E FREQUÊNCIA DE ATUALIZAÇÃO
+-----------------------------------------
+Flush ocorre quando:
+  - 400 eventos acumulados (PROCESSOR_BATCH_SIZE), OU
+  - 3 segundos passaram com pelo menos 1 evento (PROCESSOR_FLUSH_SECONDS)
+
+A 25 eventos/s, isso resulta em ~1 flush a cada 3 segundos.
+O Metabase tem refresh mínimo de 1 minuto (versão gratuita), portanto
+os dados estarão sempre frescos quando o dashboard atualizar.
+
+
+9. RECONEXÃO AUTOMÁTICA
+--------------------------
+Em caso de falha na escrita (queda do PostgreSQL, timeout de rede),
+o processador fecha a conexão corrompida, abre uma nova e re-tenta o flush.
+O batch em memória não é descartado. O Kafka offset só é commitado após
+confirmação de escrita bem-sucedida.
+
+
+RESUMO DAS RESPONSABILIDADES
+------------------------------
+  event_factory.py     → gera eventos com lógica de negócio de geração
+  stream_processor.py  → processa e calcula KPIs (Polars)
+  db_init.py           → define schema (DDL)
+  PostgreSQL           → armazena resultados prontos
+  Metabase             → exibe os dados sem transformá-los
