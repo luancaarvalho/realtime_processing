@@ -31,6 +31,12 @@ class Settings:
         "SEED_TARGETS_PATH", "/app/data/seed/seller_targets.csv"
     )
 
+    postgres_host:     str   = os.getenv("POSTGRES_HOST",     "postgres")
+    postgres_port:     int   = int(os.getenv("POSTGRES_PORT", "5432"))
+    postgres_db:       str   = os.getenv("POSTGRES_DB",       "blackfriday")
+    postgres_user:     str   = os.getenv("POSTGRES_USER",     "postgres")
+    postgres_password: str   = os.getenv("POSTGRES_PASSWORD", "postgres")
+
     generator_events_per_second: int = int(os.getenv("GENERATOR_EVENTS_PER_SECOND", "25"))
     processor_batch_size: int = int(os.getenv("PROCESSOR_BATCH_SIZE", "400"))
     processor_flush_seconds: float = float(os.getenv("PROCESSOR_FLUSH_SECONDS", "3"))
