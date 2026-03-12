@@ -125,7 +125,7 @@ st.markdown('<div class="section-title">Performance Comercial</div>', unsafe_all
 perf_col1, perf_col2 = st.columns(2)
 
 with perf_col1:
-    st.markdown("**Top vendedores por GMV**")
+    # st.markdown("**Top vendedores por GMV**")
     seller_data = metrics.get("by_seller", [])
 
     if seller_data:
@@ -150,7 +150,7 @@ with perf_col1:
         st.info("Ainda não há dados de vendedores.")
 
 with perf_col2:
-    st.markdown("**GMV por região**")
+    # st.markdown("**GMV por região**")
     region_data = metrics.get("by_region", [])
 
     if region_data:
@@ -179,7 +179,7 @@ st.markdown("")
 prod_col1, prod_col2 = st.columns(2)
 
 with prod_col1:
-    st.markdown("**Top produtos por quantidade vendida**")
+    # st.markdown("**Top produtos por quantidade vendida**")
     product_data = metrics.get("top_products", [])
 
     if product_data:
@@ -204,7 +204,7 @@ with prod_col1:
         st.info("Ainda não há dados de produtos.")
 
 with prod_col2:
-    st.markdown("**Top produtos por GMV**")
+    # st.markdown("**Top produtos por GMV**")
     product_data = metrics.get("top_products", [])
 
     if product_data:
